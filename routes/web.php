@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\NucleoxController;
+
+use App\Http\Controllers\TestController; // per fer proves
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('test', [TestController::class, 'show']);
+
+Route::get('{slug}', [NucleoxController::class, 'work']);
+Route::get('/', function() {
+    return redirect('/home');
 });
