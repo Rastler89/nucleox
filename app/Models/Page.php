@@ -10,6 +10,13 @@ class Page extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'identifier',
+        'title',
+        'category_id',
+        'status'
+    ];
+
     public function menus() {
         return $this->belgonsToMany(Menu::class, 'menu_page_relations', 'page_id', 'menu_id');
     }

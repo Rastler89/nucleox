@@ -12,6 +12,12 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use App\Models\Category;
 
 class PageResource extends Resource
 {
@@ -23,7 +29,13 @@ class PageResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('identifier'),
+                TextInput::make('title'),
+                Select::make('category_id')
+                    ->label('Category')
+                    ->options(Category::all()->pluck('name', 'id'))
+                    ->searchable(),
+                Toggle::make('status'),
             ]);
     }
 
@@ -31,7 +43,9 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id')->sortable(),
+                TextColumn::make('title')->sortable(),
+                ToggleColumn::make('status'),
             ])
             ->filters([
                 //

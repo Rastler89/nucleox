@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
 
 class CategoryResource extends Resource
 {
@@ -19,11 +21,23 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string {
+        return __('Categories');
+    }
+
+    public static function getModelLabel(): string {
+        return __('Categories');
+    }
+
+    public static function getNavigationBadge(): ?string {
+        return static::getModel()::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name'),
             ]);
     }
 
@@ -31,7 +45,8 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id')->sortable(),
+                TextColumn::make('name')->sortable()->searchable()->translateLabel(),
             ])
             ->filters([
                 //
