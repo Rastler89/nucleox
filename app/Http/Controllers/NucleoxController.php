@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Page;
+use App\Models\Menu;
 
 class NucleoxController extends Controller
 {
@@ -12,10 +13,12 @@ class NucleoxController extends Controller
 
         $page = Page::where('identifier','=',$slug)->first();
 
+        $menus = Menu::where('is_active','=',1)->get();
 
         return view('layouts.public', [
             'config' => obtenerConfiguraciones(),
-            'page' => $page
+            'page' => $page,
+            'menus' => $menus
         ]);
     }
 }

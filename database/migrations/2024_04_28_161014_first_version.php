@@ -62,6 +62,17 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
         });
 
+        Schema::create('menu_page_relations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('menu_id');
+            $table->unsignedBigInteger('page_id');
+            $table->tinyInteger('is_active')->default(1);
+            $table->integer('order')->default(0);
+
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
+        });
+
 
         // Tienda
         Schema::create('molds', function (Blueprint $table) {
@@ -98,5 +109,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('molds');
+        Schema::dropIfExists('menu_page_relations');
+        Schema::dropIfExists('pages');
+        Schema::dropIfExists('menus');
+        Schema::dropIfExists('menu_position');
+        Schema::dropIfExists('categories');
+        Schema::dropIfExists('configurations');
     }
 };
