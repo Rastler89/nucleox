@@ -14,9 +14,7 @@ class Menu extends Model
 
 
     public function pages() {
-        return $this->belongsToMany(Page::class, 'menu_page_relations', 'menu_id', 'page_id')
-            ->wherePivot('is_active', 1)
-            ->orderBy('order');
+        return $this->belongsToMany(Page::class, 'menu_page_relations')->withPivot(['order','is_active']);
     }
 
     public function submenus() {

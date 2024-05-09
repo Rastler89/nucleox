@@ -28,6 +28,8 @@ class MoldResource extends Resource
 {
     protected static ?string $model = Mold::class;
 
+    protected static ?string $navigationGroup = 'Products';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getNavigationLabel(): string {

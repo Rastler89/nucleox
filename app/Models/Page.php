@@ -18,6 +18,6 @@ class Page extends Model
     ];
 
     public function menus() {
-        return $this->belgonsToMany(Menu::class, 'menu_page_relations', 'page_id', 'menu_id');
+        return $this->belongsToMany(Menu::class, 'menu_page_relations');
     }
 }

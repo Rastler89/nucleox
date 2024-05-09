@@ -12,10 +12,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\TextColumn;
 
 class MenuResource extends Resource
 {
     protected static ?string $model = Menu::class;
+
+    protected static ?string $navigationGroup = 'Menu';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -50,7 +53,7 @@ class MenuResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\PagesRelationManager::class,
         ];
     }
 
