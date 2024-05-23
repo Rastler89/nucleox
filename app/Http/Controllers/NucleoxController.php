@@ -13,6 +13,10 @@ class NucleoxController extends Controller
 
         $page = Page::where('identifier','=',$slug)->first();
 
+        if($page == null) {
+            abort(404,"Page not found");
+        }
+
         $menus = Menu::where('is_active','=',1)->get();
 
         return view('layouts.public', [

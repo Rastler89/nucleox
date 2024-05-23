@@ -10,10 +10,24 @@ use App\Models\Mold;
 class TestController extends Controller
 {
     public function show() {
-        $mold = Mold::find(1);
 
-        $mold->image = Storage::disk('public')->url($mold->image);
-
-        return view('pdf.molde', ['mold' => $mold]);
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://countriesnow.space/api/v0.1/countries',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+        
+        $response = json_decode(curl_exec($curl),true);
+        
+        curl_close($curl);
+        echo"<pre>";print_r($response);echo"</pre>";
+        
     }
 }
